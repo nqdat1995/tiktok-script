@@ -135,7 +135,7 @@ def run_download(videos: List["VideoInfo"], options):
         print(f"Error occurred while downloading videos from channel {options["ChannelId"]}:\n{ex}")
 
 options = {
-    "ChannelId":"@duongthoon",
+    "ChannelId":"@reviewphimdao22",
     "DestinationPath":"D:/TIKTOK/",
     "IsGetMostView":False,
     "VideoType":YoutubeVideoType.SHORTS,

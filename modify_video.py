@@ -7,12 +7,21 @@ def edit_video(video_name, option):
     filter_builder = []
 
     builder.append(f"-y -i \"{os.path.join(option['OriginVideoPath'], video_name)}\"")
-    filter_builder.append(
-        f"[0:v]setpts={1 / option['VideoSpeed']:.4f}*PTS,"
-        f"scale=1080:1920:force_original_aspect_ratio=decrease,"
-        f"pad=1080:1920:(ow-iw)/2:(oh-ih)/2:color=black[vid]; "
-        f"[0:a]atempo={option['VideoSpeed']}[audio];"
-    )
+    # filter_builder.append(
+    #     f"[0:v]setpts={1 / option['VideoSpeed']:.4f}*PTS,"
+    #     f"scale=1080:1920:force_original_aspect_ratio=decrease,"
+    #     f"pad=1080:1920:(ow-iw)/2:(oh-ih)/2:color=black[vid]; "
+    #     f"[0:a]atempo={option['VideoSpeed']}[audio];"
+    # )
+    
+    # filter_builder.append(
+    #     f"[0:v]setpts={1 / option['VideoSpeed']:.4f}*PTS,"
+    #     f"scale=1080:1920:force_original_aspect_ratio=decrease,"
+    #     f"pad=1080:1920:(ow-iw)/2:(oh-ih)/2[fg];"
+    #     f"[0:v]scale=1080:1920,boxblur=10:5[bg];"
+    #     f"[bg][fg]overlay=(W-w)/2:(H-h)/2[vid];"
+    #     f"[0:a]atempo={option['VideoSpeed']}[audio];"
+    # )
     
     if option.get("OverlayFilePath"):
         builder.append(f"-i \"{option['OverlayFilePath']}\"")
@@ -85,5 +94,6 @@ def run_edit_video(video_folder, destination_folder):
 
             edit_video(path.name, options)
 
-            
-run_edit_video('D:\TIKTOK\@duongthoon', 'D:\TIKTOK\@duongthoon/EDITED')
+channelCode = '8314870'
+# run_edit_video(f'D:\TIKTOK\{channelCode}', f'D:\TIKTOK\{channelCode}\EDITED')
+run_edit_video(f'D:\TIKTOK\DOUYIN\{channelCode}', f'D:\TIKTOK\DOUYIN\{channelCode}\EDITED')
