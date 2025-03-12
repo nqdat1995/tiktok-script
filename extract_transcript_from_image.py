@@ -6,23 +6,6 @@ import subprocess
 import shutil
 from pathlib import Path
 
-def convert_video_to_images(output_folder, video_path):
-    os.makedirs("tmp", exist_ok=True)    
-    
-    output_pattern = f"{output_folder}/frame_%04d.png"  # Frame naming pattern
-
-    command = [
-        "ffmpeg",
-        "-i", video_path,       # Input file
-        "-vf", f"fps=1",  # Extract frames at given rate
-        output_pattern,         # Output filename pattern
-        "-hide_banner",
-        "-loglevel", "error"    # Suppress unnecessary output
-    ]
-
-    subprocess.run(command, check=True)
-    print(f"Frames extracted to {output_folder}")
-
 def ocr_and_translate_images(input_directory, output_path):
     # Khởi tạo PaddleOCR và Translator
     ocr = PaddleOCR(use_angle_cls=True, lang='ch')  # 'ch' cho tiếng Trung, 'en' cho tiếng Anh
@@ -61,31 +44,12 @@ def ocr_and_translate_images(input_directory, output_path):
                 # Ghi kết quả vào file
                 f.write(f"{filename}: {ocr_result.strip()} ({translated_result})\n")  # Ghi tên file và kết quả OCR
 
-    shutil.rmtree(input_directory)
-    os.mkdir(input_directory)
     print(f"Đã lưu kết quả vào {output_path}")
 
-def run_extract(video_folder):
-    destination_folder = f'{video_folder}/tmp'
-    if not os.path.exists(video_folder):
-        os.mkdir(video_folder)
-    if not os.path.exists(destination_folder):
-        os.mkdir(destination_folder)
+def run_extract(image_folder):
+    if not os.path.exists(image_folder):
+        return
         
-    video_path = Path(video_folder)
-    video_files = [file for file in video_path.iterdir() if file.is_file()]
-    
-    for path in video_files:
-        convert_video_to_images(destination_folder, f'{video_folder}/{path.name}')
-        ocr_and_translate_images(destination_folder, f'{video_folder}/{path.name}.txt')
+    ocr_and_translate_images(image_folder, f'{image_folder}/output.txt')
 
-# Sử dụng hàm
-# input_directory = 'tmp'  # Đường dẫn đến thư mục chứa hình ảnh
-
-# convert_video_to_images(input_directory, 'D:\TIKTOK\DOUYIN\TiAmo_0530\oYY9vtE3yeLioONxAVZ5bQgQDfAlFAgPtBOmdI.mp4')
-
-# output_path = 'output.txt'  # Đường dẫn đến file đầu ra
-
-# ocr_and_translate_images(input_directory, output_path)
-
-run_extract('D:/TIKTOK/DOUYIN/NXY0928')
+run_extract('D:/TIKTOK/XIAOHONGSHU/IMAGES/20250304')

@@ -7,12 +7,12 @@ def edit_video(video_name, option):
     filter_builder = []
 
     builder.append(f"-y -i \"{os.path.join(option['OriginVideoPath'], video_name)}\"")
-    # filter_builder.append(
-    #     f"[0:v]setpts={1 / option['VideoSpeed']:.4f}*PTS,"
-    #     f"scale=1080:1920:force_original_aspect_ratio=decrease,"
-    #     f"pad=1080:1920:(ow-iw)/2:(oh-ih)/2:color=black[vid]; "
-    #     f"[0:a]atempo={option['VideoSpeed']}[audio];"
-    # )
+    filter_builder.append(
+        f"[0:v]setpts={1 / option['VideoSpeed']:.4f}*PTS,"
+        f"scale=1080:1920:force_original_aspect_ratio=decrease,"
+        f"pad=1080:1920:(ow-iw)/2:(oh-ih)/2:color=black[vid]; "
+        f"[0:a]atempo={option['VideoSpeed']}[audio];"
+    )
     
     # filter_builder.append(
     #     f"[0:v]setpts={1 / option['VideoSpeed']:.4f}*PTS,"
@@ -94,6 +94,6 @@ def run_edit_video(video_folder, destination_folder):
 
             edit_video(path.name, options)
 
-channelCode = '8314870'
-# run_edit_video(f'D:\TIKTOK\{channelCode}', f'D:\TIKTOK\{channelCode}\EDITED')
-run_edit_video(f'D:\TIKTOK\DOUYIN\{channelCode}', f'D:\TIKTOK\DOUYIN\{channelCode}\EDITED')
+channelCode = '@Trieuhieureview'
+run_edit_video(f'D:\TIKTOK\{channelCode}', f'D:\TIKTOK\{channelCode}\EDITED')
+#run_edit_video(f'D:\TIKTOK\DOUYIN\{channelCode}', f'D:\TIKTOK\DOUYIN\{channelCode}\EDITED')

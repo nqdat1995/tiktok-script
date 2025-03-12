@@ -75,7 +75,7 @@
             console.log(`✅ Đang tải xuống: ${name}.mp4`);
 
             // Đóng tab sau 5 giây (để đảm bảo tải xuống đã bắt đầu)
-            setTimeout(() => window.close(), 5000);
+            // setTimeout(() => window.close(), 5000);
         } catch (error) {
             console.error(`❌ Lỗi tải video: ${name}`, error);
         }
