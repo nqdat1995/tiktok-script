@@ -1,7 +1,7 @@
 from paddleocr import PaddleOCR
 import cv2
 import os
-from googletrans import Translator
+# from googletrans import Translator
 import subprocess
 import shutil
 from pathlib import Path
@@ -26,7 +26,7 @@ def convert_video_to_images(output_folder, video_path):
 def ocr_and_translate_images(input_directory, output_path):
     # Khởi tạo PaddleOCR và Translator
     ocr = PaddleOCR(use_angle_cls=True, lang='ch')  # 'ch' cho tiếng Trung, 'en' cho tiếng Anh
-    translator = Translator()
+    #translator = Translator()
 
     # Mở file đầu ra
     with open(output_path, 'w', encoding='utf-8') as f:
@@ -56,10 +56,11 @@ def ocr_and_translate_images(input_directory, output_path):
                         ocr_result += text + " "  # Gộp các từ lại với nhau
 
                 # Dịch kết quả
-                translated_result = translator.translate(ocr_result.strip(), dest='en').text
+                #translated_result = translator.translate(ocr_result.strip(), dest='en').text
 
                 # Ghi kết quả vào file
-                f.write(f"{filename}: {ocr_result.strip()} ({translated_result})\n")  # Ghi tên file và kết quả OCR
+                #f.write(f"{filename}: {ocr_result.strip()} ({translated_result})\n")  # Ghi tên file và kết quả OCR
+                f.write(f"{filename}: {ocr_result.strip()} ()\n")  # Ghi tên file và kết quả OCR
 
     shutil.rmtree(input_directory)
     os.mkdir(input_directory)
@@ -88,4 +89,5 @@ def run_extract(video_folder):
 
 # ocr_and_translate_images(input_directory, output_path)
 
-run_extract('D:/TIKTOK/DOUYIN/NXY0928')
+#run_extract('D:/TIKTOK/DOUYIN/NXY0928')
+run_extract('D:/TIKTOK/DOUYIN/FUNNY/NXY0928')

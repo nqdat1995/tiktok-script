@@ -81,9 +81,11 @@
         }
     }
 
+    var skip = 100
     // Tải từng video với delay 3 giây (tránh bị chặn)
     result.forEach((video, index) => {
-        setTimeout(() => downloadVideo(video.url, video.name), index * 3000);
+        if (index > skip)
+            setTimeout(() => downloadVideo(video.url, video.name), index * 3000);
     });
 
     console.log(`🎉 Hoàn tất, đang tải xuống ${result.length} video! Tab sẽ tự động đóng sau khi hoàn thành.`);

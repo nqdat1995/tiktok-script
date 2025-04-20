@@ -87,8 +87,8 @@ def download_video(video_info, destination_path):
             # "--concurrent-fragments", "10", "--limit-rate", "0",
             "--concurrent-fragments", "10",
             "--throttled-rate", "10M",
-            "--external-downloader", "aria2c",
-            "--external-downloader-args", "-s16 -x16 -k10M --quiet",
+            # "--external-downloader", "aria2c",
+            # "--external-downloader-args", "-s16 -x16 -k10M --quiet",
             "-P", target_path, "-o", output_file, video_url
         ]
 
@@ -136,8 +136,8 @@ def run_download(videos: List["VideoInfo"], options):
         print(f"Error occurred while downloading videos from channel {options["ChannelId"]}:\n{ex}")
 
 options = {
-    "ChannelId":"@BongenHamHoc",
-    "DestinationPath":"D:/TIKTOK/",
+    "ChannelId":"@StarryriverAnime",
+    "DestinationPath":"D:/TIKTOK/YOUTUBE/",
     "IsGetMostView":False,
     "VideoType":YoutubeVideoType.SHORTS,
     "ViewNum" : 0

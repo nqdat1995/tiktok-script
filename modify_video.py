@@ -82,18 +82,18 @@ def run_edit_video(video_folder, destination_folder):
         else:
             options = {
                 "OriginVideoPath": video_folder,
-                "VideoSpeed": 1.1,
-                "OverlayFilePath": 'D:\TIKTOK\OVERLAY.jpg',
+                "VideoSpeed": 0.9,
+                "OverlayFilePath": 'D:/TIKTOK/OVERLAY.jpg',
                 "Opacity": 5,
-                "LogoFilePath": 'D:\TIKTOK\CIRCLE-LOGO.png',
+                "LogoFilePath": 'D:/TIKTOK/CIRCLE-LOGO.png',
                 "LogoScale": 25, #tỷ lệ phần trăm
                 "LogoLocationX": 100,
-                "LogoLocationY": 100,
+                "LogoLocationY": 250,
                 "EditedVideoPath": destination_folder
             }
 
             edit_video(path.name, options)
 
-channelCode = '@Trieuhieureview'
-run_edit_video(f'D:\TIKTOK\{channelCode}', f'D:\TIKTOK\{channelCode}\EDITED')
+channelCode = '@StarryriverAnime'
+run_edit_video(f'D:/TIKTOK/YOUTUBE/{channelCode}', f'D:/TIKTOK/YOUTUBE/{channelCode}/EDITED')
 #run_edit_video(f'D:\TIKTOK\DOUYIN\{channelCode}', f'D:\TIKTOK\DOUYIN\{channelCode}\EDITED')
