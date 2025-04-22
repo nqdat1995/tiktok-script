@@ -1,0 +1,60 @@
+version: '3.8'
+
+volumes:
+  db_storage:
+    driver: local
+    driver_opts:
+      type: none
+      device: /run/desktop/mnt/host/d/LEARN/n8n/db
+      o: bind
+  n8n_storage:
+    driver: local
+    driver_opts:
+      type: none
+      device: /run/desktop/mnt/host/d/LEARN/n8n/data
+      o: bind
+  exchange_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /run/desktop/mnt/host/d/LEARN/n8n/exchange_data
+      o: bind,uid=1000,gid=1000,rw
+
+services:
+  postgres:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-n8n}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-n8npass}
+      POSTGRES_DB: ${POSTGRES_DB:-n8ndb}
+      POSTGRES_NON_ROOT_USER: ${POSTGRES_NON_ROOT_USER:-n8nuser}
+      POSTGRES_NON_ROOT_PASSWORD: ${POSTGRES_NON_ROOT_PASSWORD:-n8nuserpass}
+    volumes:
+      - db_storage:/var/lib/postgresql/data
+      - ./init-data.sh:/docker-entrypoint-initdb.d/init-data.sh
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -h localhost -U ${POSTGRES_USER:-n8n} -d ${POSTGRES_DB:-n8ndb}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  n8n:
+    #image: docker.n8n.io/n8nio/n8n
+    image: n8n:latest
+    restart: always
+    environment:
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: postgres
+      DB_POSTGRESDB_PORT: 5432
+      DB_POSTGRESDB_DATABASE: ${POSTGRES_DB:-n8ndb}
+      DB_POSTGRESDB_USER: ${POSTGRES_USER:-n8n}
+      DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD:-n8npass}
+    ports:
+      - 5678:5678
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - n8n_storage:/home/node/.n8n
+      - exchange_data:/exchange_data
